@@ -7,7 +7,7 @@
         <!--<result column="passWord" jdbcType="VARCHAR" property="passWord" />-->
         <!--<result column="realName" jdbcType="VARCHAR" property="realName" />-->
     <!--</resultMap>-->
-    <select id="find" resultType="com.bugu.bgcommunity.entity.User">
+    <select id="find" resultType="com.bugu.bgcommunity.model.entity.User">
         select * from user where id = #{id}
     </select>
 </mapper>
