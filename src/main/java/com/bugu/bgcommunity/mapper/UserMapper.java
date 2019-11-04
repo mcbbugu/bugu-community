@@ -1,6 +1,6 @@
 package com.bugu.bgcommunity.mapper;
 
-import com.bugu.bgcommunity.entity.User;
+import com.bugu.bgcommunity.model.entity.User;
 import org.springframework.stereotype.Repository;
 
 /**

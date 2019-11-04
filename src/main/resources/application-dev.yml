@@ -21,3 +21,13 @@ logging:
     com:
       example:
         mapper : debug
+
+justauth:
+  enabled: true
+  type:
+    gitee:
+      client-id: 4c8be9b5b8082a6d438005eb2b3f5242e29409d28ab8223e56538c395ec75096
+      client-secret: 62d0e971800fff4fb694d4d5c1870e8585be489e0c1ef8c7ad8c66c97d518f58
+      redirect-uri: http://127.0.0.1:8081/oauth/gitee/callback
+  cache:
+    type: default
