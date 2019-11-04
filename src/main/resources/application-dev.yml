@@ -1,0 +1,23 @@
+#开发环境
+server:
+  port: 8081
+
+spring:
+  datasource:
+    driver-class-name: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3307/community-bugu?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+
+mybatis:
+  mapper-locations: mapper/*Mapper.xml
+  type-aliases-package: com.bugu.bgcommunity.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
+#showSql
+logging:
+  level:
+    com:
+      example:
+        mapper : debug
