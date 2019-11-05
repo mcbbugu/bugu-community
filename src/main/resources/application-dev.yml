@@ -9,18 +9,27 @@ spring:
     password: 123456
     url: jdbc:mysql://localhost:3307/community-bugu?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
 
-mybatis:
-  mapper-locations: mapper/*Mapper.xml
-  type-aliases-package: com.bugu.bgcommunity.entity
-  configuration:
-    map-underscore-to-camel-case: true
+#mybatis:
+#  mapper-locations: mapper/*Mapper.xml
+#  type-aliases-package: com.bugu.bgcommunity.entity
+#  configuration:
+#    map-underscore-to-camel-case: true
+
+#mybatis-plus:
+#  configuration:
+#    mapUnderscoreToCamelCase: true
 
 #showSql
+#logging:
+#  level:
+#    com:
+#      example:
+#        mapper : debug
+
+# Logger Config
 logging:
   level:
-    com:
-      example:
-        mapper : debug
+    com.bugu.bgcommunity.mapper: debug
 
 justauth:
   enabled: true
