@@ -1,9 +1,10 @@
 package com.bugu.bgcommunity.service;
 
-import com.bugu.bgcommunity.model.entity.User;
 import com.bugu.bgcommunity.mapper.UserMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.bugu.bgcommunity.model.entity.User;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * .
@@ -13,10 +14,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-    @Autowired
+    @Resource
     private UserMapper userMapper;
 
     public User getUserById(Integer id){
-        return userMapper.find(id);
+        return userMapper.selectById(id);
     }
 }

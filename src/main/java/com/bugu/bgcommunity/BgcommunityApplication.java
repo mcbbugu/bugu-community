@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 //扫描的mapper
 @MapperScan("com.bugu.bgcommunity.mapper")
+//@MapperScan("com.baomidou.mybatisplus.samples.quickstart.mapper")
 @SpringBootApplication
 public class BgcommunityApplication {
     public static void main(String[] args) {

@@ -14,12 +14,12 @@ import java.sql.Timestamp;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
-    Integer id;
-    String accountId;
-    String name;
+    int id;
+    String openId;
+    String nickName;
     String token;
-    String bio;
     String avatarUrl;
+    String openType;
     Timestamp gmtCreate;
     Timestamp gmtUpdate;
 }

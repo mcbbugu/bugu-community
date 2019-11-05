@@ -1,11 +1,24 @@
 package com.bugu.bgcommunity.controller;
 
-import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.request.AuthGiteeRequest;
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
+import com.bugu.bgcommunity.mapper.UserMapper;
+import com.bugu.bgcommunity.model.entity.User;
+import com.xkcoding.justauth.AuthRequestFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import me.zhyd.oauth.model.AuthCallback;
+import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.request.AuthRequest;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import me.zhyd.oauth.utils.AuthStateUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * .
@@ -13,46 +26,52 @@ import org.springframework.web.bind.annotation.RestController;
  * 2019-10-28 09:42
  */
 @CrossOrigin
+@Slf4j
 @RestController
 @RequestMapping("/oauth")
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class LoginController {
+    private final AuthRequestFactory factory;
 
-//    @RequestMapping("/oauth/redirect")
-//    public ResultDTO githubLogin(@RequestParam("code") String code){
-//        //获取授权码 -> 请求令牌
-//        Map<String, Object> params = new HashMap<>();
-//        params.put("client_id", "15cecaffa2691a8b740e");
-//        params.put("client_secret", "7102c4988d93b035dd63e8b03f1f6f263779a4bf");
-//        params.put("code", code);
-//        String accessToken = HttpUtil.post(
-//                "https://github.com/login/oauth/access_token", params);
-//        accessToken = "token " + accessToken.split("&")[0].split("=")[1];
-//
-//        Console.log(accessToken);
-//        //使用令牌获取用户数据
-//        String user = HttpRequest.get("https://api.github.com/user")
-//                .header("Authorization", accessToken)//头信息，多个头信息多次调用此方法即可
-//                .timeout(20000)//超时，毫秒
-//                .execute().body();
-//        Console.log(user);
-//        User userbean = JSONUtil.toBean(user, User.class);
-//        return ResultDTO.ok(userbean);
-//    }
-//
-//    @Autowired
-//    private UserService userService;
-//
-//    @RequestMapping("/finduser")
-//    public User GetUser(@RequestParam("id") Integer id){
-//        User user = userService.getUserById(id);
-//        return user;
-//    }
+    @Autowired
+    private UserMapper userMapper;
 
-    private AuthRequest getAuthRequest(){
-        return new AuthGiteeRequest(AuthConfig.builder()
-                .clientId("4c8be9b5b8082a6d438005eb2b3f5242e29409d28ab8223e56538c395ec75096")
-                .clientSecret("62d0e971800fff4fb694d4d5c1870e8585be489e0c1ef8c7ad8c66c97d518f58")
-                .redirectUri("http://127.0.0.1:3000/oauth/callback/gitee")
-                .build());
+    @GetMapping
+    public List<String> list() {
+        return factory.oauthList();
+    }
+
+    @GetMapping("/login/{type}")
+    public void login(@PathVariable String type, HttpServletResponse response) throws IOException {
+        log.info("进入登录方法");
+        AuthRequest authRequest = factory.get(type);
+        response.sendRedirect(authRequest.authorize(AuthStateUtils.createState()));
+    }
+
+    @RequestMapping("/{type}/callback")
+    public AuthResponse login(@PathVariable String type, AuthCallback callback) {
+        AuthRequest authRequest = factory.get(type);
+        AuthResponse response = authRequest.login(callback);
+        log.info("【response】= {}", JSONUtil.toJsonStr(response));
+
+        if(ObjectUtil.isNotNull(response)){
+            //将用户信息存入数据库
+            User user = new User();
+            JSONObject json = JSONUtil.parseObj(response.getData());
+            user.setNickName(json.get("nickname").toString());
+            user.setOpenId(json.get("uuid").toString());
+            user.setOpenType(type);
+            user.setToken(UUID.randomUUID().toString());
+            user.setAvatarUrl(json.get("avatar").toString());
+
+            //添加服务层，用户记录存在则更新，不存在则创建。
+            int insert = userMapper.insert(user);
+            if(insert == 1){
+                log.info("用户登录，插入用户记录成功 😀, 受影响条数: {}", insert);
+            }else{
+                log.info("用户登录，插入用户记录失败 😭, 受影响条数: {}", insert);
+            }
+        }
+        return response;
     }
 }

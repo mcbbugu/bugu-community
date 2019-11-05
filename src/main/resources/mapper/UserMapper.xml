@@ -10,4 +10,8 @@
     <select id="find" resultType="com.bugu.bgcommunity.model.entity.User">
         select * from user where id = #{id}
     </select>
+
+    <insert id="create" parameterType="com.bugu.bgcommunity.model.entity.User">
+        insert into user values {}
+    </insert>
 </mapper>
