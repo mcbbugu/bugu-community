@@ -1,5 +1,6 @@
 package com.bugu.bgcommunity.common;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -11,6 +12,8 @@ import lombok.experimental.FieldDefaults;
  */
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
+//为空不显示
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResultDTO <T> {
     Integer code;
     String msg;
@@ -22,8 +25,16 @@ public class ResultDTO <T> {
         this.data = data;
     }
 
+    public ResultDTO(Integer code, String msg){
+        this.code = code;
+        this.msg = msg;
+    }
+
     public static <T> ResultDTO ok(T data){
-        ResultDTO dto = new ResultDTO(200, "成功", data);
-        return dto;
+        return new ResultDTO(200, "成功", data);
+    }
+
+    public static ResultDTO error(String msg) {
+        return new ResultDTO(0, msg);
     }
 }
