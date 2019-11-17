@@ -13,17 +13,20 @@ public class ResultBean<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public static final int NO_LOGIN = -1;
+
     public static final int SUCCESS = 0;
 
-    public static final int FAIL = 1;
+    public static final int CHECK_FAIL = 1;
 
     public static final int NO_PERMISSION = 2;
 
-    private String msg = "success";
-
-    private int code = SUCCESS;
+    public static final int UNKNOWN_EXCEPTION = -99;
 
     private T data;
+
+    private int code = SUCCESS;
+    private String msg = "success";
 
     public ResultBean() {
         super();
@@ -38,6 +41,6 @@ public class ResultBean<T> implements Serializable {
     public ResultBean(Throwable e) {
         super();
         this.msg = e.toString();
-        this.code = FAIL;
+        this.code = UNKNOWN_EXCEPTION;
     }
 }

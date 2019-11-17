@@ -13,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.UUID;
-
 /**
  * .
  * Created by mcbbugu
@@ -28,9 +26,9 @@ public class LoginService{
 
     private final UserMapper userMapper;
 
-    public User insert(AuthResponse response, String type, String token){
+    public User insertOrUpdate(AuthResponse response, String type, String token){
         JSONObject json = JSONUtil.parseObj(response.getData());
-        if(ObjectUtil.isNotNull(response)){
+        if(null != response){
             QueryWrapper<User> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("open_id", json.get("uuid").toString());
             User user = userMapper.selectOne(queryWrapper);
@@ -53,7 +51,7 @@ public class LoginService{
             else{
                 user.setNickName(json.get("nickname").toString());
                 user.setAvatarUrl(json.get("avatar").toString());
-                user.setToken(UUID.randomUUID().toString());
+                user.setToken(token);
                 int update = userMapper.updateById(user);
                 if(update == 1){
                     log.info("用户登录，更新用户记录成功 😀, 受影响条数: {}", update);
@@ -62,8 +60,6 @@ public class LoginService{
                 }
                 return user;
             }
-        }else{
-
         }
         return null;
     }
