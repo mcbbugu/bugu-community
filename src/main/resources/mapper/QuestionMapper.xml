@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bugu.bgcommunity.mapper.QuestionMapper">
+    <!--<resultMap id="BaseResultMap" type="com.example.entity.User">-->
+        <!--<result column="id" jdbcType="INTEGER" property="id" />-->
+        <!--<result column="userName" jdbcType="VARCHAR" property="userName" />-->
+        <!--<result column="passWord" jdbcType="VARCHAR" property="passWord" />-->
+        <!--<result column="realName" jdbcType="VARCHAR" property="realName" />-->
+    <!--</resultMap>-->
+    <select id="findQuestionByTag" resultType="com.bugu.bgcommunity.model.dto.QuestionDTO">
+        select q.id, q.title, q.view_count, q.user_id,
+        q.tag, q.comment_count, q.gmt_create, u.avatar_url
+        from question q
+        left join user u
+        on q.user_id = u.id
+        <where>
+            <if test="tag != '' and tag != null">
+                q.tag = #{tag}
+            </if>
+        </where>
+    </select>
+</mapper>

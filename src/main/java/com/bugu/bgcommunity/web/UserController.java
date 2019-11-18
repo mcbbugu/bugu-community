@@ -1,4 +1,4 @@
-package com.bugu.bgcommunity.controller;
+package com.bugu.bgcommunity.web;
 
 import com.bugu.bgcommunity.common.ResultDTO;
 import com.bugu.bgcommunity.model.entity.User;

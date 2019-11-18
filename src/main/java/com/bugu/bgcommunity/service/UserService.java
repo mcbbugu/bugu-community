@@ -3,10 +3,11 @@ package com.bugu.bgcommunity.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.bugu.bgcommunity.mapper.UserMapper;
 import com.bugu.bgcommunity.model.entity.User;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * .
@@ -15,10 +16,11 @@ import javax.annotation.Resource;
  */
 @Slf4j
 @Service
+@Transactional
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class UserService {
 
-    @Resource
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
 
     public User findUserBy(Integer id){
         return userMapper.selectById(id);
