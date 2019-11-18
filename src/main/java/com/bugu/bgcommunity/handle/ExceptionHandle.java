@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Slf4j
 public class ExceptionHandle {
 
-    @ExceptionHandler(value = BuguException.class)
+    @ExceptionHandler
     @ResponseBody
     public ResultDTO handle(Exception e){
         if(e instanceof BuguException){

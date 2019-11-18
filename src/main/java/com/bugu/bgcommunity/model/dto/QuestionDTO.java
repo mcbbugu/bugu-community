@@ -1,5 +1,6 @@
-package com.bugu.bgcommunity.model.entity;
+package com.bugu.bgcommunity.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -7,19 +8,22 @@ import lombok.experimental.FieldDefaults;
 import java.sql.Timestamp;
 
 /**
- * 问题
+ * .
  * Created by mcbbugu
- * 2019-10-29 23:52
+ * 2019-11-18 21:36
  */
 @Data
+@JsonInclude(value = JsonInclude.Include.NON_NULL)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Question {
+public class QuestionDTO {
     Integer id;
     String title;
     String content;
     Integer viewCount;
     Integer commentCount;
+    String tag;
     Integer userId;
     Timestamp gmtCreate;
     Timestamp gmtUpdate;
+    String avatarUrl;
 }

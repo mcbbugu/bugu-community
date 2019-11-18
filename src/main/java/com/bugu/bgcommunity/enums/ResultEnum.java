@@ -10,7 +10,9 @@ import lombok.Getter;
 @Getter
 public enum ResultEnum {
 
-    LOGIN_FIAL(1, "登录异常");
+    LOGIN_FIAL(1, "登录异常"),
+
+    NO_QUESTION(2, "没找到问题");
 
     private Integer code;
 

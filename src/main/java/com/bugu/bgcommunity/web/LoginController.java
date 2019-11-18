@@ -1,4 +1,4 @@
-package com.bugu.bgcommunity.controller;
+package com.bugu.bgcommunity.web;
 
 import cn.hutool.core.lang.UUID;
 import cn.hutool.json.JSONUtil;
