@@ -16,13 +16,13 @@ import java.sql.Timestamp;
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class QuestionDTO {
-    Integer id;
+    int id;
     String title;
     String content;
-    Integer viewCount;
-    Integer commentCount;
+    int viewCount;
+    int commentCount;
     String tag;
-    Integer userId;
+    int userId;
     Timestamp gmtCreate;
     Timestamp gmtUpdate;
     String avatarUrl;
