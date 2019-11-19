@@ -1,5 +1,7 @@
 package com.bugu.bgcommunity.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bugu.bgcommunity.enums.ResultEnum;
 import com.bugu.bgcommunity.exception.BuguException;
 import com.bugu.bgcommunity.mapper.QuestionMapper;
@@ -9,8 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * .
@@ -25,11 +25,11 @@ public class QuestionService {
 
     private final QuestionMapper questionMapper;
 
-    public List<QuestionDTO> findQuestionBy(String tag){
-        List<QuestionDTO> questionDTO = questionMapper.findQuestionByTag(tag);
-        if(null == questionDTO){
+    public IPage<QuestionDTO> findQuestionBy(Page<QuestionDTO> page, String tag){
+        IPage<QuestionDTO> questions = questionMapper.findQuestionByTag(page, tag);
+        if(null == questions){
             throw new BuguException(ResultEnum.NO_QUESTION);
         }
-        return questionDTO;
+        return questions;
     }
 }

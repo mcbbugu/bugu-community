@@ -1,13 +1,13 @@
 package com.bugu.bgcommunity.web;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bugu.bgcommunity.common.ResultDTO;
 import com.bugu.bgcommunity.model.dto.QuestionDTO;
 import com.bugu.bgcommunity.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * .
@@ -23,8 +23,11 @@ public class QuestionController {
     private final QuestionService questionService;
 
     @GetMapping("/find")
-    public ResultDTO findQuestionBy(@RequestParam(value = "tag", required = false) String tag){
-        List<QuestionDTO> list = questionService.findQuestionBy(tag);
-        return ResultDTO.ok(list);
+    public ResultDTO findQuestionBy(@RequestParam(defaultValue = "1") int current,
+                                    @RequestParam(defaultValue = "10") int size,
+                                    @RequestParam(required = false) String tag){
+        Page<QuestionDTO> page = new Page<>(current, size);
+        IPage<QuestionDTO> questions = questionService.findQuestionBy(page, tag);
+        return ResultDTO.ok(questions);
     }
 }
