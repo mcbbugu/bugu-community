@@ -21,6 +21,7 @@ public class QuestionDTO {
     String content;
     int viewCount;
     int commentCount;
+    int agreeCount;
     String tag;
     int userId;
     Timestamp gmtCreate;

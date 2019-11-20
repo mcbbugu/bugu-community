@@ -19,6 +19,7 @@ public class Question {
     String content;
     Integer viewCount;
     Integer commentCount;
+    Integer agreeCount;
     Integer userId;
     Timestamp gmtCreate;
     Timestamp gmtUpdate;

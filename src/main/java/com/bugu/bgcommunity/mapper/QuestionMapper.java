@@ -13,5 +13,7 @@ import org.apache.ibatis.annotations.Param;
  * 2019-11-18 21:34
  */
 public interface QuestionMapper extends BaseMapper<Question> {
-    IPage<QuestionDTO> findQuestionByTag(Page page, @Param("tag") String tag);
+    IPage<QuestionDTO> findQuestionByTag(Page page,
+                                         @Param("tag") String tag,
+                                         @Param("sort") String sort);
 }

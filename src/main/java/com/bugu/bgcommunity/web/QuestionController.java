@@ -25,9 +25,10 @@ public class QuestionController {
     @GetMapping("/find")
     public ResultDTO findQuestionBy(@RequestParam(defaultValue = "1") int current,
                                     @RequestParam(defaultValue = "10") int size,
-                                    @RequestParam(required = false) String tag){
+                                    @RequestParam(required = false) String tag,
+                                    @RequestParam(defaultValue = "gmt_create") String sort){
         Page<QuestionDTO> page = new Page<>(current, size);
-        IPage<QuestionDTO> questions = questionService.findQuestionBy(page, tag);
+        IPage<QuestionDTO> questions = questionService.findQuestionBy(page, tag, sort);
         return ResultDTO.ok(questions);
     }
 }
