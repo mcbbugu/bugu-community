@@ -25,8 +25,8 @@ public class QuestionService {
 
     private final QuestionMapper questionMapper;
 
-    public IPage<QuestionDTO> findQuestionBy(Page<QuestionDTO> page, String tag){
-        IPage<QuestionDTO> questions = questionMapper.findQuestionByTag(page, tag);
+    public IPage<QuestionDTO> findQuestionBy(Page<QuestionDTO> page, String tag, String sort){
+        IPage<QuestionDTO> questions = questionMapper.findQuestionByTag(page, tag, sort);
         if(null == questions){
             throw new BuguException(ResultEnum.NO_QUESTION);
         }

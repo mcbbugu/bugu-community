@@ -9,7 +9,7 @@
     <!--</resultMap>-->
     <select id="findQuestionByTag" resultType="com.bugu.bgcommunity.model.dto.QuestionDTO">
         select q.id, q.title, q.view_count, q.user_id,
-        q.tag, q.comment_count, q.gmt_create, u.avatar_url
+        q.tag, q.comment_count, q.agree_count, q.gmt_create, u.avatar_url
         from question q
         left join user u
         on q.user_id = u.id
@@ -18,5 +18,6 @@
                 q.tag = #{tag}
             </if>
         </where>
+        order by ${sort} desc
     </select>
 </mapper>
