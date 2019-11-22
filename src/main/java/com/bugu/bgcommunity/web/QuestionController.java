@@ -9,6 +9,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
 /**
  * .
  * Created by mcbbugu
@@ -30,5 +34,15 @@ public class QuestionController {
         Page<QuestionDTO> page = new Page<>(current, size);
         IPage<QuestionDTO> questions = questionService.findQuestionBy(page, tag, sort);
         return ResultDTO.ok(questions);
+    }
+
+    @PostMapping("/add")
+    public ResultDTO addQuestion(@RequestParam String title,
+                                 @RequestBody List<Integer> tags,
+                                 @RequestParam String content,
+                                 HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
+        //判断是否登录
+        return null
     }
 }
