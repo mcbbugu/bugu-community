@@ -1,7 +1,7 @@
-package com.bugu.bgcommunity.mapper;
+package com.bugu.bgcommunity.core.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.bugu.bgcommunity.model.entity.User;
+import com.bugu.bgcommunity.core.model.entity.User;
 
 /**
  * .

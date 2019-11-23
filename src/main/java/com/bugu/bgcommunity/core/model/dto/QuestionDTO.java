@@ -1,4 +1,4 @@
-package com.bugu.bgcommunity.model.dto;
+package com.bugu.bgcommunity.core.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AccessLevel;

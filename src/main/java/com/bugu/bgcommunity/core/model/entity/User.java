@@ -1,4 +1,4 @@
-package com.bugu.bgcommunity.model.entity;
+package com.bugu.bgcommunity.core.model.entity;
 
 import lombok.AccessLevel;
 import lombok.Data;

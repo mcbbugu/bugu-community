@@ -19,7 +19,7 @@ public class BuguException extends RuntimeException{
         this.code = resultEnum.getCode();
     }
 
-    public BuguException(Integer code, String msg){
+    public BuguException(String msg){
         super(msg);
     }
 }
