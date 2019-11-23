@@ -1,11 +1,11 @@
-package com.bugu.bgcommunity.service;
+package com.bugu.bgcommunity.core.service;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.bugu.bgcommunity.mapper.UserMapper;
-import com.bugu.bgcommunity.model.entity.User;
+import com.bugu.bgcommunity.core.mapper.UserMapper;
+import com.bugu.bgcommunity.core.model.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.zhyd.oauth.model.AuthResponse;

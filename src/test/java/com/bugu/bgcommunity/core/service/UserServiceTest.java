@@ -1,6 +1,6 @@
-package com.bugu.bgcommunity.service;
+package com.bugu.bgcommunity.core.service;
 
-import com.bugu.bgcommunity.model.entity.User;
+import com.bugu.bgcommunity.core.model.entity.User;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

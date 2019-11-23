@@ -1,8 +1,8 @@
-package com.bugu.bgcommunity.service;
+package com.bugu.bgcommunity.core.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.bugu.bgcommunity.model.dto.QuestionDTO;
+import com.bugu.bgcommunity.core.model.dto.QuestionDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
-package com.bugu.bgcommunity.web;
+package com.bugu.bgcommunity.core.api;
 
 import cn.hutool.core.lang.UUID;
 import cn.hutool.json.JSONUtil;
-import com.bugu.bgcommunity.service.LoginService;
+import com.bugu.bgcommunity.core.service.LoginService;
 import com.xkcoding.justauth.AuthRequestFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/oauth")
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-public class LoginController{
+public class LoginApi {
     private final AuthRequestFactory factory;
     private final LoginService loginService;
 
@@ -61,7 +61,7 @@ public class LoginController{
         //使用令牌获取用户数据
         log.info("【response】= {}", JSONUtil.toJsonStr(authResponse));
         String token = UUID.randomUUID().toString();
-        //添加服务层，用户记录存在则更新，不存在则创建。
+        //用户记录存在则更新，不存在则创建
         loginService.insertOrUpdate(authResponse, type, token);
         String new_url = "http://192.168.0.102:3000?token=" + token;
         response.sendRedirect(new_url);

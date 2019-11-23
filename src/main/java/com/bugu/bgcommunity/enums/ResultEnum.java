@@ -10,9 +10,13 @@ import lombok.Getter;
 @Getter
 public enum ResultEnum {
 
-    LOGIN_FIAL(1, "登录异常"),
+    login_fial(1, "登录异常"),
+    no_question(2, "没找到问题"),
 
-    NO_QUESTION(2, "没找到问题");
+    success_send(200, "发布成功"),
+    no_login(0, "请先登录");
+
+    public static final String param_error = "参数错误: {}";
 
     private Integer code;
 

@@ -1,15 +1,14 @@
-package com.bugu.bgcommunity.web;
+package com.bugu.bgcommunity.core.api;
 
 import com.bugu.bgcommunity.common.ResultDTO;
-import com.bugu.bgcommunity.model.entity.User;
-import com.bugu.bgcommunity.service.UserService;
+import com.bugu.bgcommunity.common.annotation.RRestController;
+import com.bugu.bgcommunity.core.service.UserService;
+import com.bugu.bgcommunity.core.model.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -21,18 +20,17 @@ import javax.servlet.http.HttpServletResponse;
  * 2019-10-28 09:42
  */
 @Slf4j
-@RestController
-@RequestMapping("/user")
+@RRestController("/user/")
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-public class UserController {
+public class UserApi {
 
     private final UserService userService;
 
-    @GetMapping("/find")
+    @GetMapping("find")
     public ResultDTO findBy(@RequestParam("token") String token,
                             HttpServletResponse response){
 
-        Cookie cookie = new Cookie("token", token);
+        Cookie cookie = new Cookie("bgcommunity-token", token);
         cookie.setPath("/");
         cookie.setDomain("192.168.0.102");
         response.addCookie(cookie);
@@ -41,12 +39,12 @@ public class UserController {
         return ResultDTO.ok(user);
     }
 
-    @GetMapping("/refresh")
+    @GetMapping("refresh")
     public ResultDTO refresh(HttpServletRequest request){
         Cookie[] cookies = request.getCookies();
         if(null != cookies){
             for(Short i = 0; i < cookies.length; i++){
-                if(cookies[i].getName().equals("token")){
+                if(cookies[i].getName().equals("bgcommunity-token")){
                     User user = userService.findUserBy(cookies[i].getValue());
                     return ResultDTO.ok(user);
                 }

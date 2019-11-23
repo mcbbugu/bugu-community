@@ -1,4 +1,4 @@
-package com.bugu.bgcommunity.model.entity;
+package com.bugu.bgcommunity.core.model.entity;
 
 import lombok.AccessLevel;
 import lombok.Data;
@@ -14,13 +14,14 @@ import java.sql.Timestamp;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Question {
-    Integer id;
+    int id;
     String title;
     String content;
-    Integer viewCount;
-    Integer commentCount;
-    Integer agreeCount;
-    Integer userId;
+    int viewCount;
+    int commentCount;
+    int agreeCount;
+    int userId;
+    String tags;
     Timestamp gmtCreate;
     Timestamp gmtUpdate;
 }

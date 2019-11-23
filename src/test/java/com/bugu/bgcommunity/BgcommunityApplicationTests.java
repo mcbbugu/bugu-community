@@ -1,8 +1,8 @@
 package com.bugu.bgcommunity;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.bugu.bgcommunity.mapper.UserMapper;
-import com.bugu.bgcommunity.model.entity.User;
+import com.bugu.bgcommunity.core.mapper.UserMapper;
+import com.bugu.bgcommunity.core.model.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

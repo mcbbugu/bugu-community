@@ -1,5 +1,6 @@
 package com.bugu.bgcommunity.common;
 
+import com.bugu.bgcommunity.enums.ResultEnum;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -18,6 +19,7 @@ public class ResultDTO <T> {
     Integer code;
     String msg;
     T data;
+    ResultEnum resultEnum;
 
     public ResultDTO(Integer code, String msg, T data) {
         this.code = code;
@@ -30,8 +32,20 @@ public class ResultDTO <T> {
         this.msg = msg;
     }
 
+    public ResultDTO(ResultEnum resultEnum){
+        this.resultEnum = resultEnum;
+    }
+
     public static <T> ResultDTO ok(T data){
         return new ResultDTO(200, "成功", data);
+    }
+
+    public static <T> ResultDTO ok(ResultEnum resultEnum){
+        return new ResultDTO(resultEnum);
+    }
+
+    public static <T> ResultDTO error(ResultEnum resultEnum){
+        return new ResultDTO(resultEnum);
     }
 
     public static ResultDTO error(String msg) {

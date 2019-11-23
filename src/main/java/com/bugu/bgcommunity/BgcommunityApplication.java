@@ -7,7 +7,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableSwagger2
 //扫描的mapper
-@MapperScan("com.bugu.bgcommunity.mapper")
+@MapperScan("com.bugu.bgcommunity.core.mapper")
 @SpringBootApplication
 public class BgcommunityApplication {
     public static void main(String[] args) {
