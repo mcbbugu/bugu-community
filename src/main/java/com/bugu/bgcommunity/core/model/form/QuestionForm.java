@@ -21,4 +21,5 @@ public class QuestionForm {
     List<String> tags;
     @NotBlank(message = "内容必填")
     String content;
+    String classify;
 }

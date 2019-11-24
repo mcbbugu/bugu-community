@@ -10,11 +10,15 @@ import lombok.Getter;
 @Getter
 public enum ResultEnum {
 
-    login_fial(1, "登录异常"),
+    fial_login(1, "登录异常"),
     no_question(2, "没找到问题"),
 
-    success_send(200, "发布成功"),
-    no_login(0, "请先登录");
+    ok_send(200, "发布成功"),
+    no_login(0, "请先登录"),
+
+    not_img(0, "请上传图片"),
+    ok_upload(1, "上产成功"),
+    ;
 
     public static final String param_error = "参数错误: {}";
 

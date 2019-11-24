@@ -15,7 +15,7 @@ import java.sql.Timestamp;
 @Data
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class QuestionDTO {
+public class ArticleDTO {
     int id;
     String title;
     String content;
@@ -23,6 +23,7 @@ public class QuestionDTO {
     int commentCount;
     int agreeCount;
     String tag;
+    String classify;
     int userId;
     Timestamp gmtCreate;
     Timestamp gmtUpdate;

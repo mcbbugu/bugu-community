@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bugu.bgcommunity.core.mapper.QuestionMapper">
+<mapper namespace="com.bugu.bgcommunity.core.mapper.ArticleMapper">
     <!--<resultMap id="BaseResultMap" type="com.example.entity.User">-->
         <!--<result column="id" jdbcType="INTEGER" property="id" />-->
         <!--<result column="userName" jdbcType="VARCHAR" property="userName" />-->
         <!--<result column="passWord" jdbcType="VARCHAR" property="passWord" />-->
         <!--<result column="realName" jdbcType="VARCHAR" property="realName" />-->
     <!--</resultMap>-->
-    <select id="findQuestionByTag" resultType="com.bugu.bgcommunity.core.model.dto.QuestionDTO">
-        select q.id, q.title, q.view_count, q.user_id,
-        q.tags, q.comment_count, q.agree_count, q.gmt_create, u.avatar_url
-        from question q
+    <select id="findArticleBy" resultType="com.bugu.bgcommunity.core.model.dto.ArticleDTO">
+        select a.id, a.title, a.view_count, a.user_id,
+        a.tags, a.classify, a.comment_count, a.agree_count, a.gmt_create, u.avatar_url
+        from article a
         left join user u
-        on q.user_id = u.id
+        on a.user_id = u.id
         <where>
-            <if test="tag != '' and tag != null">
-                q.tags = #{tag}
+            <if test="classify != '' and classify != null">
+                a.classify = #{classify}
             </if>
         </where>
         order by ${sort} desc

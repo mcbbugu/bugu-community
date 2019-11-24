@@ -1,5 +1,7 @@
 package com.bugu.bgcommunity.core.model.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -12,6 +14,7 @@ import lombok.experimental.FieldDefaults;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Tag {
+    @TableId(value = "id", type = IdType.AUTO)
     int id;
     String name;
     int questionCount;

@@ -1,5 +1,7 @@
 package com.bugu.bgcommunity.core.model.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -13,7 +15,8 @@ import java.sql.Timestamp;
  */
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Question {
+public class Article {
+    @TableId(value = "id", type = IdType.AUTO)
     int id;
     String title;
     String content;
@@ -21,6 +24,7 @@ public class Question {
     int commentCount;
     int agreeCount;
     int userId;
+    String classify;
     String tags;
     Timestamp gmtCreate;
     Timestamp gmtUpdate;

@@ -32,12 +32,17 @@ public class ResultDTO <T> {
         this.msg = msg;
     }
 
+    public ResultDTO(int code, T data){
+        this.code = code;
+        this.data = data;
+    }
+
     public ResultDTO(ResultEnum resultEnum){
         this.resultEnum = resultEnum;
     }
 
     public static <T> ResultDTO ok(T data){
-        return new ResultDTO(200, "成功", data);
+        return new ResultDTO(1, data);
     }
 
     public static <T> ResultDTO ok(ResultEnum resultEnum){

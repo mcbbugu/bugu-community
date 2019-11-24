@@ -97,6 +97,13 @@
             <version>2.9.2</version>
         </dependency>
 
+        <!--用于图片上传-->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -31,6 +31,7 @@ logging:
   level:
     com.bugu.bgcommunity.mapper: debug
 
+#登录
 justauth:
   enabled: true
   type:
@@ -40,3 +41,14 @@ justauth:
       redirect-uri: http://127.0.0.1:8081/oauth/gitee/callback
   cache:
     type: default
+
+#图片
+#配置图片路径
+#image-url:
+#  markdown:
+#    access-path: http://mall.qszhuang.com/image/point/
+#    save-path: /bugu/image/markdown/
+
+markdown:
+  access: http://192.168.0.102:8081/question/image/
+  save: C:\\mcb\\
