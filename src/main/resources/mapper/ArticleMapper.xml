@@ -7,7 +7,7 @@
         <!--<result column="passWord" jdbcType="VARCHAR" property="passWord" />-->
         <!--<result column="realName" jdbcType="VARCHAR" property="realName" />-->
     <!--</resultMap>-->
-    <select id="findArticleBy" resultType="com.bugu.bgcommunity.core.model.dto.ArticleDTO">
+    <select id="findArticleListBy" resultType="com.bugu.bgcommunity.core.model.dto.ArticleDTO">
         select a.id, a.title, a.view_count, a.user_id,
         a.tags, a.classify, a.comment_count, a.agree_count, a.gmt_create, u.avatar_url
         from article a
@@ -20,4 +20,16 @@
         </where>
         order by ${sort} desc
     </select>
+
+    <!--<select id="findOneArticleAndUserBy" resultType="com.bugu.bgcommunity.core.model.dto.ArticleDTO">-->
+        <!--select a.*, u.*-->
+        <!--from article a-->
+        <!--left join user u-->
+        <!--on a.user_id = u.id-->
+        <!--<where>-->
+            <!--<if test="id != '' and id != null">-->
+                <!--a.id = #{id}-->
+            <!--</if>-->
+        <!--</where>-->
+    <!--</select>-->
 </mapper>

@@ -1,5 +1,6 @@
 package com.bugu.bgcommunity.core.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bugu.bgcommunity.common.utils.ImgUtil;
@@ -12,6 +13,7 @@ import com.bugu.bgcommunity.enums.ResultEnum;
 import com.bugu.bgcommunity.exception.BuguException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -34,16 +36,23 @@ public class ArticleService {
     private final ArticleMapper articleMapper;
     private final UserService userService;
 
-    public IPage<ArticleDTO> findQuestionBy(Page<ArticleDTO> page, String classify, String sort){
-        IPage<ArticleDTO> questions = articleMapper.findArticleBy(page, classify, sort);
+    public IPage<ArticleDTO> findArticleListBy(Page<ArticleDTO> page, String classify, String sort){
+        IPage<ArticleDTO> questions = articleMapper.findArticleListBy(page, classify, sort);
         if(null == questions){
             throw new BuguException(ResultEnum.no_question);
         }
         return questions;
     }
 
-    public Article findBy(int id){
-        return articleMapper.selectById(id);
+    public ArticleDTO findOneArticleAndUserBy(int id){
+        QueryWrapper<Article> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id", id);
+        Article article = articleMapper.selectOne(queryWrapper);
+        User user = userService.findUserBy(article.getUserId());
+        ArticleDTO articleDTO = new ArticleDTO();
+        BeanUtils.copyProperties(article, articleDTO);
+        articleDTO.setUser(user);
+        return articleDTO;
     }
 
     public int addQuestion(QuestionForm form, String cookie){

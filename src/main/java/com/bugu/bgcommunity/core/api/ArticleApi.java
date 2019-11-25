@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bugu.bgcommunity.common.ResultDTO;
 import com.bugu.bgcommunity.common.annotation.RRestController;
 import com.bugu.bgcommunity.core.model.dto.ArticleDTO;
-import com.bugu.bgcommunity.core.model.entity.Article;
 import com.bugu.bgcommunity.core.model.form.QuestionForm;
 import com.bugu.bgcommunity.core.service.ArticleService;
 import com.bugu.bgcommunity.enums.ResultEnum;
@@ -41,14 +40,14 @@ public class ArticleApi {
                                     @RequestParam(required = false) String classify,
                                     @RequestParam(defaultValue = "gmt_create") String sort){
         Page<ArticleDTO> page = new Page<>(current, size);
-        IPage<ArticleDTO> questions = articleService.findQuestionBy(page, classify, sort);
+        IPage<ArticleDTO> questions = articleService.findArticleListBy(page, classify, sort);
         return ResultDTO.ok(questions);
     }
 
     @GetMapping("find/{id}")
     public ResultDTO findBy(@PathVariable int id){
-        Article article = articleService.findBy(id);
-        return ResultDTO.ok(article);
+        ArticleDTO articleDTO = articleService.findOneArticleAndUserBy(id);
+        return ResultDTO.ok(articleDTO);
     }
 
     @PostMapping("add")

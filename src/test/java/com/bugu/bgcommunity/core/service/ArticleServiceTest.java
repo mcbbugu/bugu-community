@@ -24,7 +24,7 @@ class ArticleServiceTest {
     @Test
     void findQuestionBy() {
         Page<ArticleDTO> page = new Page<>(1, 2);
-        IPage<ArticleDTO> questions = articleService.findQuestionBy(page, "博客", "id");
+        IPage<ArticleDTO> questions = articleService.findArticleListBy(page, "博客", "id");
         System.out.println(questions.getRecords());
     }
 }

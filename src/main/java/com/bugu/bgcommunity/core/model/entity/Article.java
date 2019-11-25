@@ -26,6 +26,8 @@ public class Article {
     int userId;
     String classify;
     String tags;
+    int likeCount;
+    int collectionCount;
     Timestamp gmtCreate;
     Timestamp gmtUpdate;
 }

@@ -25,6 +25,7 @@ public class User {
     String openType;
     int articleCount;
     int likeCount;
+    int fansCount;
     int collectionCount;
     Timestamp gmtCreate;
     Timestamp gmtUpdate;

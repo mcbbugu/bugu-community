@@ -13,7 +13,9 @@ import org.apache.ibatis.annotations.Param;
  * 2019-11-18 21:34
  */
 public interface ArticleMapper extends BaseMapper<Article> {
-    IPage<ArticleDTO> findArticleBy(Page page,
+    IPage<ArticleDTO> findArticleListBy(Page page,
                                         @Param("classify") String classify,
                                         @Param("sort") String sort);
+
+//    ArticleDTO findOneArticleAndUserBy(@Param("id") int id);
 }

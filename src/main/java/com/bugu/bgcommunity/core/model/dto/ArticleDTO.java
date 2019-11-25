@@ -1,5 +1,6 @@
 package com.bugu.bgcommunity.core.model.dto;
 
+import com.bugu.bgcommunity.core.model.entity.User;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -27,5 +28,11 @@ public class ArticleDTO {
     int userId;
     Timestamp gmtCreate;
     Timestamp gmtUpdate;
-    String avatarUrl;
+    User user;
+
+//    String avatarUrl;
+//    int articleCount;
+//    int fansCount;
+//    int likeCount;
+//    int collection_count;
 }
