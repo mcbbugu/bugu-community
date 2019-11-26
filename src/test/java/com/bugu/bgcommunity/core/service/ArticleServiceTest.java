@@ -1,8 +1,5 @@
 package com.bugu.bgcommunity.core.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.bugu.bgcommunity.core.model.dto.ArticleDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +20,8 @@ class ArticleServiceTest {
 
     @Test
     void findQuestionBy() {
-        Page<ArticleDTO> page = new Page<>(1, 2);
-        IPage<ArticleDTO> questions = articleService.findArticleListBy(page, "博客", "id");
-        System.out.println(questions.getRecords());
+//        Page<ArticleDTO> page = new Page<>(1, 2);
+//        IPage<ArticleDTO> questions = articleService.findArticleListBy(page, "博客", "id");
+//        System.out.println(questions.getRecords());
     }
 }

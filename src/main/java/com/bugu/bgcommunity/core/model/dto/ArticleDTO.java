@@ -23,16 +23,14 @@ public class ArticleDTO {
     int viewCount;
     int commentCount;
     int agreeCount;
-    String tag;
-    String classify;
     int userId;
+    String classify;
+    String tags;
+    int likeCount;
+    int collectionCount;
     Timestamp gmtCreate;
     Timestamp gmtUpdate;
-    User user;
 
-//    String avatarUrl;
-//    int articleCount;
-//    int fansCount;
-//    int likeCount;
-//    int collection_count;
+    String avatarUrl;
+    User user;
 }

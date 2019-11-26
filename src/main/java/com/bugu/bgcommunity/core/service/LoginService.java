@@ -40,6 +40,10 @@ public class LoginService{
                 user.setOpenType(type);
                 user.setToken(token);
                 user.setAvatarUrl(json.get("avatar").toString());
+                QueryWrapper<User> userQuery = new QueryWrapper<>();
+                //新建用户时，总访问量排名总是用户总数+1
+                Integer userCount = userMapper.selectCount(userQuery);
+                user.setRank(userCount);
                 int insert = userMapper.insert(user);
                 if(insert == 1){
                     log.info("用户登录，插入用户记录成功 😀, 受影响条数: {}", insert);

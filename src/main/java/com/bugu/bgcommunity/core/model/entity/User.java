@@ -27,6 +27,8 @@ public class User {
     int likeCount;
     int fansCount;
     int collectionCount;
+    int viewCount;
+    int rank;
     Timestamp gmtCreate;
     Timestamp gmtUpdate;
 }

@@ -5,12 +5,11 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bugu.bgcommunity.common.utils.ImgUtil;
 import com.bugu.bgcommunity.core.mapper.ArticleMapper;
+import com.bugu.bgcommunity.core.mapper.UserMapper;
 import com.bugu.bgcommunity.core.model.dto.ArticleDTO;
 import com.bugu.bgcommunity.core.model.entity.Article;
 import com.bugu.bgcommunity.core.model.entity.User;
 import com.bugu.bgcommunity.core.model.form.QuestionForm;
-import com.bugu.bgcommunity.enums.ResultEnum;
-import com.bugu.bgcommunity.exception.BuguException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -35,28 +34,33 @@ public class ArticleService {
 
     private final ArticleMapper articleMapper;
     private final UserService userService;
+    private final UserMapper userMapper;
 
-    public IPage<ArticleDTO> findArticleListBy(Page<ArticleDTO> page, String classify, String sort){
-        IPage<ArticleDTO> questions = articleMapper.findArticleListBy(page, classify, sort);
-        if(null == questions){
-            throw new BuguException(ResultEnum.no_question);
-        }
-        return questions;
+    public IPage<ArticleDTO> findArticleListBy(Page<Article> page, String classify, String sort){
+        IPage<ArticleDTO> articleDTOS = articleMapper.findArticleListBy(page, classify, sort);
+        return articleDTOS;
     }
 
-    public ArticleDTO findOneArticleAndUserBy(int id){
+    public ArticleDTO findOneArticleAndUserBy(int ArticleId){
         QueryWrapper<Article> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("id", id);
+        queryWrapper.eq("id", ArticleId);
         Article article = articleMapper.selectOne(queryWrapper);
         User user = userService.findUserBy(article.getUserId());
         ArticleDTO articleDTO = new ArticleDTO();
         BeanUtils.copyProperties(article, articleDTO);
+
+        //用户总访问量排名
+        int ranking = userMapper.trafficRanking(user.getId());
+        user.setRank(ranking);
+        userMapper.updateById(user);
         articleDTO.setUser(user);
         return articleDTO;
     }
 
-    public int addQuestion(QuestionForm form, String cookie){
-        User user = userService.findUserBy(cookie);
+    public int addQuestion(QuestionForm form, String token){
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("token", token);
+        User user = userMapper.selectOne(queryWrapper);
         if(user != null){
             Article article = new Article();
             article.setTitle(form.getTitle());
@@ -81,5 +85,16 @@ public class ArticleService {
         String url = ImgUtil.upload(file, savePath, accessPath);
         log.info("图片地址：" + url);
         return url;
+    }
+
+    public void addViewCount(int id){
+        //文章浏览量新增+1
+        Article article = articleMapper.selectById(id);
+        article.setViewCount(article.getViewCount() + 1);
+        articleMapper.updateById(article);
+        //用户的总访问量+1
+        User user = userMapper.selectById(article.getUserId());
+        user.setViewCount(user.getViewCount() + 1);
+        userMapper.updateById(user);
     }
 }
