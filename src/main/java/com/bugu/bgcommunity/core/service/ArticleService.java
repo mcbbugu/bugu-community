@@ -36,8 +36,8 @@ public class ArticleService {
     private final UserService userService;
     private final UserMapper userMapper;
 
-    public IPage<ArticleDTO> findArticleListBy(Page<Article> page, String classify, String sort){
-        IPage<ArticleDTO> articleDTOS = articleMapper.findArticleListBy(page, classify, sort);
+    public IPage<ArticleDTO> findArticleListBy(Page<Article> page, String classify, Integer userId, String sort){
+        IPage<ArticleDTO> articleDTOS = articleMapper.findArticleListBy(page, classify, userId, sort);
         return articleDTOS;
     }
 
@@ -96,5 +96,13 @@ public class ArticleService {
         User user = userMapper.selectById(article.getUserId());
         user.setViewCount(user.getViewCount() + 1);
         userMapper.updateById(user);
+    }
+
+    public IPage<Article> findArticleBy(int userId, IPage<Article> page){
+        QueryWrapper<Article> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_id", userId);
+        wrapper.orderByDesc("gmtCreate");
+        IPage<Article> articleIPage = articleMapper.selectPage(page, wrapper);
+        return articleIPage;
     }
 }

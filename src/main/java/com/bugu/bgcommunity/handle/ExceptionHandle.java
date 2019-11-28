@@ -24,7 +24,7 @@ public class ExceptionHandle {
             return ResultDTO.error(buguException.getMessage());
         }else if(e instanceof NullPointerException){
             log.info("空指针异常，原因：" + e);
-            return ResultDTO.error(e.getMessage());
+            return ResultDTO.error("空指针异常，原因：" + e);
         }else{
             log.error("【系统异常】{}", e);
             return ResultDTO.error("未知错误");

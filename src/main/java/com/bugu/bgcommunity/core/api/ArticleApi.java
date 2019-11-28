@@ -37,11 +37,12 @@ public class ArticleApi {
 
     @GetMapping("find")
     public ResultDTO findby(@RequestParam(defaultValue = "1") int current,
-                                    @RequestParam(defaultValue = "10") int size,
-                                    @RequestParam(required = false) String classify,
-                                    @RequestParam(defaultValue = "gmt_create") String sort){
+                            @RequestParam(defaultValue = "10") int size,
+                            @RequestParam(required = false) String classify,
+                            @RequestParam(required = false) Integer userId,
+                            @RequestParam(defaultValue = "gmt_create") String sort){
         Page<Article> page = new Page<>(current, size);
-        IPage<ArticleDTO> articleDTOIPage = articleService.findArticleListBy(page, classify, sort);
+        IPage<ArticleDTO> articleDTOIPage = articleService.findArticleListBy(page, classify, userId, sort);
         return ResultDTO.ok(articleDTOIPage);
     }
 
@@ -75,5 +76,15 @@ public class ArticleApi {
     public ResultDTO upload(@RequestParam MultipartFile img){
         String url = articleService.uploadImg(img);
         return ResultDTO.ok(url);
+    }
+
+    //没用
+    @GetMapping("find/user/all")
+    public ResultDTO findUserArticleByBy(@RequestParam int userId,
+                                         @RequestParam int current,
+                                         @RequestParam int size){
+        Page<Article> page = new Page<>(current, size);
+        IPage<Article> articleIPage = articleService.findArticleBy(userId, page);
+        return ResultDTO.ok(articleIPage);
     }
 }

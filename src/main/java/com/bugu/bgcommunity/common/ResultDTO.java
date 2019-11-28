@@ -27,7 +27,7 @@ public class ResultDTO <T> {
         this.data = data;
     }
 
-    public ResultDTO(Integer code, String msg){
+    public ResultDTO(int code, String msg){
         this.code = code;
         this.msg = msg;
     }
