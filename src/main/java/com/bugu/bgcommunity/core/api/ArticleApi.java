@@ -77,14 +77,4 @@ public class ArticleApi {
         String url = articleService.uploadImg(img);
         return ResultDTO.ok(url);
     }
-
-    //没用
-    @GetMapping("find/user/all")
-    public ResultDTO findUserArticleByBy(@RequestParam int userId,
-                                         @RequestParam int current,
-                                         @RequestParam int size){
-        Page<Article> page = new Page<>(current, size);
-        IPage<Article> articleIPage = articleService.findArticleBy(userId, page);
-        return ResultDTO.ok(articleIPage);
-    }
 }

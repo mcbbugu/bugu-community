@@ -97,12 +97,4 @@ public class ArticleService {
         user.setViewCount(user.getViewCount() + 1);
         userMapper.updateById(user);
     }
-
-    public IPage<Article> findArticleBy(int userId, IPage<Article> page){
-        QueryWrapper<Article> wrapper = new QueryWrapper<>();
-        wrapper.eq("user_id", userId);
-        wrapper.orderByDesc("gmtCreate");
-        IPage<Article> articleIPage = articleMapper.selectPage(page, wrapper);
-        return articleIPage;
-    }
 }
