@@ -38,7 +38,8 @@ public class ResultDTO <T> {
     }
 
     public ResultDTO(ResultEnum resultEnum){
-        this.resultEnum = resultEnum;
+        this.code = resultEnum.getCode();
+        this.msg = resultEnum.getMsg();
     }
 
     public static <T> ResultDTO ok(T data){

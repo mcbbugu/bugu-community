@@ -6,7 +6,7 @@ import com.bugu.bgcommunity.common.ResultDTO;
 import com.bugu.bgcommunity.common.annotation.RRestController;
 import com.bugu.bgcommunity.core.model.dto.ArticleDTO;
 import com.bugu.bgcommunity.core.model.entity.Article;
-import com.bugu.bgcommunity.core.model.form.QuestionForm;
+import com.bugu.bgcommunity.core.model.form.ArticleForm;
 import com.bugu.bgcommunity.core.service.ArticleService;
 import com.bugu.bgcommunity.enums.ResultEnum;
 import com.bugu.bgcommunity.exception.BuguException;
@@ -54,7 +54,7 @@ public class ArticleApi {
     }
 
     @PostMapping("add")
-    public ResultDTO add(@Valid QuestionForm form,
+    public ResultDTO add(@Valid ArticleForm form,
                                  BindingResult result,
                                  HttpServletRequest request){
         if(result.hasErrors()) {
@@ -65,7 +65,7 @@ public class ArticleApi {
         for(Cookie cookie : cookies){
             if(cookie.getName().equals("bgcommunity-token")){
                 String cookieValue = cookie.getValue();
-                int id = articleService.addQuestion(form, cookieValue);
+                int id = articleService.addArticle(form, cookieValue);
                 return ResultDTO.ok(id);
             }
         }
@@ -76,5 +76,16 @@ public class ArticleApi {
     public ResultDTO upload(@RequestParam MultipartFile img){
         String url = articleService.uploadImg(img);
         return ResultDTO.ok(url);
+    }
+
+    @PostMapping("/update")
+    public ResultDTO updateBy(@Valid ArticleForm form,
+                              BindingResult result){
+        if(result.hasErrors()) {
+            log.info(ResultEnum.param_error, form);
+            throw new BuguException(result.getFieldError().getDefaultMessage());
+        }
+        articleService.updateArticleBy(form);
+        return ResultDTO.ok(ResultEnum.ok_update);
     }
 }

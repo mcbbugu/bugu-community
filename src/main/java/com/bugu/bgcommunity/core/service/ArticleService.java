@@ -9,7 +9,8 @@ import com.bugu.bgcommunity.core.mapper.UserMapper;
 import com.bugu.bgcommunity.core.model.dto.ArticleDTO;
 import com.bugu.bgcommunity.core.model.entity.Article;
 import com.bugu.bgcommunity.core.model.entity.User;
-import com.bugu.bgcommunity.core.model.form.QuestionForm;
+import com.bugu.bgcommunity.core.model.form.ArticleForm;
+import com.bugu.bgcommunity.enums.ResultEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -57,7 +59,7 @@ public class ArticleService {
         return articleDTO;
     }
 
-    public int addQuestion(QuestionForm form, String token){
+    public int addArticle(ArticleForm form, String token){
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("token", token);
         User user = userMapper.selectOne(queryWrapper);
@@ -72,6 +74,7 @@ public class ArticleService {
             article.setUserId(user.getId());
             articleMapper.insert(article);
             int id = article.getId();
+            log.info(ResultEnum.ok_add.getMsg() + "id: {}", id);
             return id;
         }
         return 0;
@@ -96,5 +99,15 @@ public class ArticleService {
         User user = userMapper.selectById(article.getUserId());
         user.setViewCount(user.getViewCount() + 1);
         userMapper.updateById(user);
+    }
+
+    public void updateArticleBy(ArticleForm form) {
+        Article article = articleMapper.selectById(form.getId());
+        article.setTitle(form.getTitle());
+        article.setContent(form.getContent());
+        article.setTags(String.join(",", form.getTags()));
+        article.setGmtUpdate(new Timestamp(System.currentTimeMillis()));
+        System.out.println(new Timestamp(System.currentTimeMillis()));
+        log.info(ResultEnum.ok_update.getMsg() + " id: {}", form.getId());
     }
 }

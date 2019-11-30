@@ -14,7 +14,8 @@ import java.util.List;
  */
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class QuestionForm {
+public class ArticleForm {
+    int id;
     @NotBlank(message = "标题必填")
     String title;
     @NotEmpty(message = "标签必填")
